@@ -10,6 +10,9 @@ fn find_matching_command<'a, 'b, U, E>(
     parent_commands: &mut Vec<&'a crate::Command<U, E>>,
 ) -> Option<(&'a crate::Command<U, E>, &'b [serenity::ResolvedOption<'b>])> {
     commands.iter().find_map(|cmd| {
+        if cmd.slash_action.is_none() {
+            return None;
+        }
         if interaction_name != cmd.name
             && Some(interaction_name) != cmd.context_menu_name.as_deref()
         {

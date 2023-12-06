@@ -156,6 +156,10 @@ pub fn find_command<'a, U, E>(
     };
 
     for command in commands {
+        if command.prefix_action.is_none() {
+            continue;
+        }
+
         let primary_name_matches = string_equal(&command.name, command_name);
         let alias_matches = command
             .aliases
